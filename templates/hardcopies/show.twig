@@ -1,0 +1,71 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <div class="row book-detail">
+        <div class="col-md-4">
+            <section class="cover">
+                <img src="{{ hardcopy.picture }}" alt="" class="img-responsive">
+            </section>
+
+            <section class="meta">
+                <ul class="list-unstyled">
+                    <li><strong>ISBN:</strong> {{ hardcopy.isbn }}</li>
+                    <li><strong>Sayfa:</strong> {{ hardcopy.pageCount }}</li>
+                </ul>
+
+                <ul class="list-unstyled">
+                    <li><strong>Tür:</strong> Kitap</li>
+
+                </ul>
+
+                <ul class="list-unstyled">
+                    <li><strong>Fiyat:</strong> {{ hardcopy.price|number_format }} TL (KDV dahil)</li>
+                </ul>
+            </section>
+
+            <section class="shopping text-center">
+                <button class="btn btn-primary">Sepete Ekle</button>
+            </section>
+        </div>
+
+        <div class="col-md-8">
+            <h1 class="title">{{ hardcopy.title }}</h1>
+            <small class="author">{{ hardcopy.author_name }}</small> <small>/</small> <small class="type">Kitap</small>
+
+            <ul class="list-unstyled">
+                <li><strong>Yayınevi:</strong> {{ hardcopy.publisher_name }}</li>
+                <li><strong>Kategori:</strong> {{ hardcopy.category_name }}</li>
+            </ul>
+
+            <section class="description">
+                {{ hardcopy.description|decode_entities|raw }}
+            </section>
+
+            <hr>
+
+            <section class="share text-center">
+                <p>Bu kitabı sosyal medyada paylaşın</p>
+
+                <ul class="list-inline">
+                    <li><a href="">fb</a></li>
+                    <li><a href="">tw</a></li>
+                    <li><a href="">bm</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend>Kullanıcı Yorumları (Yorum Ekle)</legend>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'partials/_sidebar-categories.twig' %}
+    {% include 'partials/_sidebar-videos.twig' %}
+    {% include 'partials/_sidebar-posts.twig' %}
+{% endblock %}

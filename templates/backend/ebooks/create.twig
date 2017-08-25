@@ -1,0 +1,154 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('backend.ebooks') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                Yeni E-kitap
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal xhr-form" action="{{ path_for('backend.ebooks.store', {'isbn': ebook.isbn}) }}"
+                  method="post">
+                <div class="form-group">
+                    <label for="input-title" class="col-sm-2 control-label">Başlık</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="title" id="input-title" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-isbn" class="col-sm-2 control-label">ISBN</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="isbn" id="input-isbn" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-price" class="col-sm-2 control-label">Fiyat</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="price" id="input-price" class="form-control" value="{{ ebook.price }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-category" class="col-sm-2 control-label">Kategori</label>
+                    <div class="col-sm-10">
+                        <select name="categories[]" id="input-category" class="form-control select2-select" multiple>
+                            <option disabled>Seçiniz</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {{ category.id in ebook.cats|unserialize ? 'selected' }}>{{ category.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-type" class="col-sm-2 control-label">Format</label>
+                    <div class="col-sm-4">
+                        <select name="type" id="input-type" class="form-control">
+                            <option disabled>Seçiniz</option>
+                            {% for format in bookFormats %}
+                                <option value="{{ format.category_id }}" {{ format.category_id == ebook.bookType ? 'selected' }}>{{ format.format_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-author" class="col-sm-2 control-label">Yazar</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="author" id="input-author" class="form-control"
+                               value="{{ ebook.authors }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-publisher" class="col-sm-2 control-label">Yayın evi</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="publisher" id="input-publisher" class="form-control"
+                               value="{{ ebook.publishers }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Görünürlük</label>
+                    <div class="col-sm-10">
+                        <input type="checkbox" name="status" {{ ebook.status ? 'checked' }} data-toggle="toggle"
+                               data-on=" " data-onstyle="success" data-off=" " data-offstyle="danger" value="1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-cover" class="col-sm-2 control-label">Kapak resmi</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="cover" class="dropzone">
+                        <div id="cover" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if ebook.cover %}
+                            <img src="{{ settings.upload_url }}{{ ebook.cover }}" alt="" height="150">
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-preview" class="col-sm-2 control-label">Önizlemesi</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="preview" class="dropzone">
+                        <div id="preview" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if ebook.bookPreview %}
+                            <a href="{{ settings.upload_url }}{{ ebook.bookPreview }}" target="_blank">Göster</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-book" class="col-sm-2 control-label">Kitap</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="book" class="dropzone">
+                        <div id="book" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if ebook.book %}
+                            <a href="{{ settings.upload_url }}{{ ebook.bookUrl }}" target="_blank">Göster</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-description" class="col-sm-2 control-label">Açıklama</label>
+                    <div class="col-sm-10">
+                    <textarea name="description" id="input-description" class="form-control redactor-text"
+                              rows="10">{{ ebook.description }}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footerScript %}
+    <script>
+        $(function () {
+            $("#cover").dropzone(imageUploadSettings);
+            $("#preview").dropzone(ebookPreviewUploadSettings);
+            $('#book').dropzone(ebookUploadSettings);
+        });
+    </script>
+{% endblock %}

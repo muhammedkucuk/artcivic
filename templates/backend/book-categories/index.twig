@@ -1,0 +1,65 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Kategoriler
+                <small>({{ total }})</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="{{ path_for('backend.book-categories.create') }}" class="btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if categories %}
+                <table class="book-categories-list table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th>Kategori Adı</th>
+                        <th width="20" class="text-center">Durumu</th>
+                        <th width="100"></th>
+                        <th width="50"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in categories %}
+                        <tr>
+                            <td>{{ loop.index + offset }}</td>
+                            <td><a href="{{ path_for('backend.book-categories.show', {'id': item.id}) }}">{{ item.title }}</a></td>
+                            <td class="text-center">{{ item.status ? 'Aktif' : 'Pasif' }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-sm btn-default sorter" data-target="{{ path_for('backend.book-categories.up', {'id': item.id}) }}">
+                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-default sorter" data-target="{{ path_for('backend.book-categories.down', {'id': item.id}) }}">
+                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                </button>
+                            </td>
+                            <td class="text-right">
+                                <form action="{{ path_for('backend.book-categories.delete', {'id': item.id}) }}" method="post"
+                                      class="xhr-form">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Kategori bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

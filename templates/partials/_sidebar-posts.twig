@@ -1,0 +1,16 @@
+<fieldset>
+    <legend>birarada 26&deg; - 45&deg;</legend>
+
+    {% for item in sidebar_posts %}
+        <div class="media">
+            <div class="media-left">
+                <a href="#"><img src="//artcivic.com/images/news/{{ item.image_name }}" alt=""
+                                 width="80"></a>
+            </div>
+
+            <div class="media-body">
+                <h5 class="media-heading">{{ item.title }}</h5>
+            </div>
+        </div>
+    {% endfor %}
+</fieldset>

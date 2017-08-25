@@ -1,0 +1,20 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <fieldset>
+        <legend>kitap</legend>
+
+        <div class="row">
+            {% for item in hardcopies %}
+                <div class="col-md-2 book-item">
+                    {% include 'partials/_showcase-hardcopy-item.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'partials/_sidebar-categories.twig' %}
+    {% include 'partials/_sidebar-posts.twig' %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Videolar
+                <small>({{ total }})</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="{{ path_for('backend.videos.create') }}" class="btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if videos %}
+                <table id="video-list" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th>İsim</th>
+                        <th width="30" class="text-center">Satış</th>
+                        <th width="30" class="text-center">Gösterim</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in videos %}
+                        <tr>
+                            <td class="text-right">{{ loop.index + offset }}</td>
+                            <td><a href="{{ path_for('backend.videos.show', {'id': item.id}) }}">{{ item.eserad }}</a></td>
+                            <td class="text-center">{{ item.freevideo ? 'Ücretsiz' : 'Ücretli' }}</td>
+                            <td class="text-center">
+                                <form action="{{ path_for('backend.videos.status', {'id': item.id}) }}">
+                                    <input type="checkbox" name="durum" {{ item.durum ? 'checked' }}
+                                           data-toggle="toggle" value="1" class="status-changer" data-on=" "
+                                           data-onstyle="success" data-off=" " data-offstyle="danger">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Video bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

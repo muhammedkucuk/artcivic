@@ -1,0 +1,14 @@
+dd > ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 300px;
+}
+
+dd > ul > li {
+
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}

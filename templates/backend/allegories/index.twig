@@ -1,0 +1,68 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Alegori
+                <small>({{ total }})</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="{{ path_for('backend.allegories.create') }}" class="btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if allegories %}
+                <table id="allegory-list" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th>Eser adı</th>
+                        <th>Sahibi</th>
+                        <th width="220" class="text-center"></th>
+                        <th width="50"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in allegories %}
+                        <tr>
+                            <td>{{ loop.index + offset }}</td>
+                            <td><a href="{{ path_for('backend.allegories.show', {'id': item.id}) }}">{{ item.title }}</a></td>
+                            <td>{{ item.artist }}</td>
+                            <td class="text-center">
+                                <form action="{{ path_for('backend.allegories.status', {'id': item.id}) }}">
+                                    <input type="checkbox" name="status" {{ item.status ? 'checked' }} value="1"
+                                           data-toggle="toggle" data-on="Yayında" data-onstyle="success"
+                                           data-off="Yayın dışı" data-offstyle="danger" class="status-changer">
+                                    <input type="checkbox" name="soldout" {{ item.soldout ? 'checked' }} value="1"
+                                           data-toggle="toggle" data-on="Satışda" data-onstyle="success"
+                                           data-off="Satış dışı" data-offstyle="danger" class="status-changer">
+                                </form>
+                            </td>
+                            <td class="text-right">
+                                <form action="{{ path_for('backend.allegories.delete', {'id': item.id}) }}" class="xhr-form">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Eser bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

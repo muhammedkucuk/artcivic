@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Copyright" CONTENT="Copyright © Inta Mühendislik Ltd. (www.artcivic.com)">
+    <meta http-equiv="Cache-Control" content="must-revalidate">
+    <meta property="article:publisher" content="https://www.facebook.com/Artcivic-1388057724742847">
+    <meta property="og:site_name" content="Artcivic"/>
+    <meta itemprop="name" content="Artcivic">
+    <meta name="alexaVerifyID" content="o57Lvs_A_doUlgrmCWkO-nG3CRw">
+    <meta name="Robots" content="index, follow">
+    <meta name="Rating" content="General">
+    <meta name="abstract" content="artcivic.com, kitap-müzik-dvd video magazası, Turkiye'nin kutuphanesi">
+    <meta name="author" CONTENT="artcivic.com">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="google-site-verification" content="o2ocyPqz2fcycv7TOHrOUixwmvCF-6Pf173g6oaJtak">
+    <meta name="description"
+          content="Kitap, E-Kitap, Resim, Heykel, Yazarlardan Öyküler, Şiirler, Söyleşiler, Makaleler, Denemeler, Sanatçı söyleşi videoları, Yeni Ressamlar, Yeni Yazarlar, Yabancı ekitap, kitap yorumları, sanat eserleri yorumları">
+    <meta name="keywords"
+          content="kitap, kitab, KITAB, kitapözet, artcivic, kitabevi, sahaf, book, yayıncı ,yazar, yayınevi, kültür, edebiyat, Gezi ve Rehber kitapları, Tarih kitapları, Eğitim kitapları, Genel Konular, Sanat kitapları, Müzik kitapları, Biyografi kitapları, Edebiyat kitapları, Bilişim kitapları, Felsefe kitapları, Din ve İnanç kitapları, İnsan ve Toplum kitapları, Psikoloji kitapları, Politika Siyaset kitapları, Ekonomi kitapları, Hukuk kitapları, Sağlık kitapları, Bilim Mühendislik kitapları,Hobi kitapları, Yemek Kitapları kitapları, Çocuk Kitapları kitapları, Akademik kitapları, Sosyoloji Kitapları, Yabancı ekitap, ekitap,Yağlıboya Resim, Akrilik Resim, Karışık Teknik Resim, Ressamlar, Heykel, Baskılar, Gravür, Metal Baskı, Resim Koleksiyon, aile ekitap, akademik ekitap, bilgisayar ekitap, çocuk ekitabı, din ekitap, roman ekitap, öykü ekitap, islam ekitap, hobi ekitap, felsefe ekitap, ekonomi ekitap, pazarlama ekitap, borsa ekitap, ales ekitap, kpds ekitap, kpss ekitap, politika ekitap, sağlık ekitap, sanat ekitap, şiir ekitap, tarih ekitap, nobel ekitap, sesli ekitap, Online Sanat Galerisi, Resim Satış, Heykel Satış, Kitap Satış, Ekitap satış">
+
+    <title>Artcivic | Edebiyat | Sinema | Müzik | Resim ve Heykel | Tiyatro</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a  id="artcivicLogo" class="navbar-brand" href="{{ path_for('home') }}"><img src="//artcivic.com/files/u512-1.png" alt="Artcivic"></a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="search" class="form-horizontal">
+                            <input class="form-control" placeholder="">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <nav class="col-md-12">
+                        <ul class="list-inline text-center">
+                            <li class="active navigation" ><a href="{{ path_for('hardcopies') }}">kitap</a></li>
+                            <li class="navigation"><a href="">e-kitap</a></li>
+                            <li class="navigation"><a href="">yabancı e-kitap</a></li>
+                            <li class="navigation"><a href="">video</a></li>
+                            <li class="navigation"><a href="">alegoriart</a></li>
+                            <li class=""><a href="">birarada</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div id="uyeGirisi" class="col-md-3">
+                <ul class="list-inline text-align-right">
+                    <li><a href="">Üye Girişi</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="col-md-4">
+            {% block sidebar %}
+                {% include 'partials/_sidebar.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-inline text-center">
+                    <li><a href="">hakkımızda</a></li>
+                    <li><a href="">kitabını yayımla</a></li>
+                    <li><a href="">e-kitap servisi</a></li>
+                    <li><a href="">bize ulaşın</a></li>
+                    <li><a href="">gizlilik</a></li>
+                    <li><a href="">kullanıcı sözleşmesi</a></li>
+                    <li><a href="">mesafeli satış sözleşmesi</a></li>
+                    <li><a href="">yardım</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-inline text-center">
+                    <li><a href="">fb</a></li>
+                    <li><a href="">tw</a></li>
+                    <li><a href="">yb</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">Tüm Hakları Saklıdır © 2013 Artcivic</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/g/jquery@3.2.1,bootstrap@3.3.7,jquery.datatables@1.10.10,select2@4.0.3,alertifyjs@1.10.0,dropzone@4.3.0"></script>
+</body>
+</html>

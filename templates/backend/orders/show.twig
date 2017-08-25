@@ -1,0 +1,121 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('backend.orders') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Sipariş detayı</legend>
+
+                <dl class="dl-horizontal">
+                    <dt>Sipariş numarası</dt>
+                    <dd>{{ order.order_id }}</dd>
+
+                    <dt>Sipariş toplam tutarı</dt>
+                    <dd>{{ order.total_price|number_format }}</dd>
+
+                    <dt>Sipariş tarihi</dt>
+                    <dd>{{ order.order_date }}</dd>
+
+                    <dt>Sipariş iptali</dt>
+                    <dd>
+                        <button class="btn btn-danger">İade et</button>
+                    </dd>
+                </dl>
+            </fieldset>
+        </div>
+
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Fatura detayı</legend>
+
+                {% if order.invoice_status %}
+                    <dl class="dl-horizontal">
+                        <dt>Fatura tarihi</dt>
+                        <dd>{{ order.invoice_date }}</dd>
+
+                        <dt>Fatura no</dt>
+                        <dd>{{ order.invoice_id }}</dd>
+
+                        <dt>Faturayı kesen</dt>
+                        <dd>{{ order.log }}</dd>
+                    </dl>
+                {% else %}
+                    <form action="{{ path_for('backend.orders.invoice', {'orderId': order.order_id}) }}" class="xhr-form">
+                        <input type="hidden" name="_method" value="put">
+                        <dl class="dl-horizontal">
+                            <dt>Fatura kesildi mi?</dt>
+                            <dd>Hayır</dd>
+
+                            <dt><label for="input-invoice-id">Fatura no</label></dt>
+                            <dd><input type="text" name="invoice_id" id="input-invoice-id" class="form-control"></dd>
+
+                            <dt><label for="input-invoice-date">Fatura tarihi</label></dt>
+                            <dd><input type="text" name="invoice_date" id="input-invoice-date"
+                                       value="{{ 'now'|date('d-m-Y') }}" class="form-control"></dd>
+
+                            <dt></dt>
+                            <dd><button type="submit" class="btn btn-success">Faturalandır</button></dd>
+                        </dl>
+                    </form>
+                {% endif %}
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend>Üye bilgileri</legend>
+
+                <dl class="dl-horizontal">
+                    <dt>Üye isim</dt>
+                    <dd>{{ order.user_namesurname }}</dd>
+
+                    <dt>Email</dt>
+                    <dd>{{ order.user_email }}</dd>
+
+                    <dt>Telefon</dt>
+                    <dd></dd>
+
+                    <dt>Adres</dt>
+                    <dd>{{ order.user_address }}</dd>
+                </dl>
+            </fieldset>
+
+            <fieldset>
+                <legend>Kitaplar</legend>
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="20"></th>
+                        <th width="60">ISBN</th>
+                        <th>Başlık</th>
+                        <th width="100" class="text-center">Ürün türü</th>
+                        <th width="100" class="text-right">Satış fiyatı</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td class="text-right">{{ loop.index }}</td>
+                            <td>{{ product.product_id }}</td>
+                            <td>{{ product.title }}</td>
+                            <td class="text-center">{{ product.type }}</td>
+                            <td class="text-right">{{ product.customer_price|number_format }} TL</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

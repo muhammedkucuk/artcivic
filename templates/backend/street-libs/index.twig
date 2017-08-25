@@ -1,0 +1,50 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Street Libs <small>({{ total }})</small></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if streetLibs %}
+                <table id="hardcopy-list" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th width="75">ISBN</th>
+                        <th>Kitap adı</th>
+                        <th width="20">Durumu</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tbody>
+                    {% for item in streetLibs %}
+                        <tr>
+                            <td>{{ loop.index + offset }}</td>
+                            <td>{{ item.isbn }}</td>
+                            <td><a href="{{ path_for('backend.street-libs.show', {'isbn': item.isbn}) }}">{{ item.title }}</a></td>
+                            <td>
+                                <form action="{{ path_for('backend.street-libs.status', {'isbn': item.isbn}) }}">
+                                    <input type="checkbox" name="saleStatus" {{ item.saleStatus ? 'checked' }} data-toggle="toggle"
+                                           data-on=" " data-onstyle="success" data-off=" " data-offstyle="danger"
+                                           data-size="small" value="1" class="status-changer">
+                                </form>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </thead>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Kitap bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

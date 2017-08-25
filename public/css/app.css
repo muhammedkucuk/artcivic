@@ -1,0 +1,71 @@
+header {
+    background-color: #FA8400;
+    padding: 10px 0 5px;
+    box-shadow: rgba(0, 0, 0, .7) 0 0 10px;
+    margin-bottom: 20px;
+}
+
+header nav ul li a {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    color: #000000;
+    font-size: 16px;
+}
+
+header nav ul li a:hover {
+    background-color: transparent !important;
+    color: #000000 !important;
+    text-decoration: underline !important;
+}
+
+fieldset .book-item {
+    font-size: 12px;
+    margin-bottom: 20px;
+    min-height: 260px;
+    text-align: center;
+}
+
+figure {
+    margin-bottom: 5px;
+    min-height: 150px;
+    max-height: 150px;
+    max-width: 100%;
+}
+
+figure img {
+    box-shadow: #000 0 0 15px;
+    margin-bottom: 10px;
+    max-height: 145px;
+    /*min-height: 150px;*/
+
+    max-width: 95%;
+
+}
+
+figure figcaption {
+    min-height: 50px;
+}
+
+footer {
+    background-color: #FA8400;
+}
+
+.navigation{
+    border-right: 1px solid black;
+    margin: 2px 2px 0 0;
+
+}
+
+#artcivicLogo{
+    padding: 0 !important;
+}
+
+#search{
+    padding-top: 5px !important;
+    padding-bottom: 3px !important;
+}
+
+#uyeGirisi{
+    padding: 10px;
+    padding-left: 30px;
+}

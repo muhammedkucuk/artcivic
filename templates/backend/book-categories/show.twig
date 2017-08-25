@@ -1,0 +1,78 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('book-categories') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                {{ category.title }}
+                <small>düzenle</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form class="form-horizontal xhr-form" action="{{ path_for('backend.book-categories.update', {'id': category.id}) }}"
+              method="post">
+            <input type="hidden" name="_method" value="put">
+            <div class="form-group">
+                <label for="input-title" class="col-sm-2 control-label">Başlık</label>
+                <div class="col-sm-10">
+                    <input type="text" name="title" id="input-title" class="form-control" value="{{ category.title }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-main-category" class="col-sm-2 control-label">Üst kategori</label>
+                <div class="col-sm-10">
+                    <select name="main_category" id="input-main-category" class="form-control" disabled>
+                        <option value="0">Ana kategori</option>
+                        {% for item in categories %}
+                            <option value="{{ item.id }}">{{ item.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Durum</label>
+                <div class="col-sm-10">
+                    <label>
+                        <input type="checkbox" name="status" {{ category.status ? "checked" : '' }} data-toggle="toggle"
+                               data-on=" " data-onstyle="success" data-off=" " data-offstyle="danger" value="1">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-simpli-category" class="col-sm-2 control-label">Simpli kategori</label>
+                <div class="col-sm-10">
+                    <select name="street_lib_categories[]" multiple id="input-simpli-category"
+                            class="form-control select2-select">
+                        {% for item in simpliCategory %}
+                            <option value="{{ item.id }}" {{ (item.id in category.simpli|unserialize ? 'selected' : '') }}>{{ item.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-gardner-category" class="col-sm-2 control-label">Gardner kategori</label>
+                <div class="col-sm-10">
+                    <select name="gardner_categories[]" multiple id="input-gardner-category"
+                            class="form-control select2-select">
+                        {% for item in gardnerCategory %}
+                            <option value="{{ item.code }}" {{ item.code in category.gardner|unserialize ? 'selected' : '' }}>{{ item.text }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Yorumlar
+                <small>({{ total }})</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if comments %}
+                <table id="comment-list" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th>Yorum</th>
+                        <th width="150">Sahibi</th>
+                        <th width="250">İçerik</th>
+                        <th width="40"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in comments %}
+                        <tr>
+                            <td class="text-right">{{ loop.index + offset }}</td>
+                            <td>{{ item.detail }}</td>
+                            <td>{{ item.user.name_surname }}</td>
+                            <td><a href="{{ item.content.slug }}">{{ item.content.title }}</a></td>
+                            <td class="text-right">
+                                <form action="{{ path_for('backend.comments.status', {'id': item.id}) }}">
+                                    <input type="checkbox" name="status" value="1" {{ item.status ? 'checked' }}
+                                           data-toggle="toggle" data-on=" " data-onstyle="success" data-off=" "
+                                           data-offstyle="danger" class="status-changer">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Kayıt bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('backend.allegories') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                {{ allegory.title }}
+                <small>düzenle</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form class="form-horizontal xhr-form" action="{{ path_for('backend.allegories.update', {'id': allegory.id}) }}"
+              method="post">
+            <input type="hidden" name="_method" value="put">
+            <div class="form-group">
+                <label for="input-title" class="col-sm-2 control-label">Başlık</label>
+                <div class="col-sm-10">
+                    <input type="text" name="title" id="input-title" class="form-control" value="{{ allegory.title }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-size" class="col-sm-2 control-label">Boyut</label>
+                <div class="col-sm-10">
+                    <input type="text" name="size" id="input-size" class="form-control" value="{{ allegory.size }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-price" class="col-sm-2 control-label">Fiyat</label>
+                <div class="col-sm-10">
+                    <input type="text" name="price" id="input-price" class="form-control" value="{{ allegory.price }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-category" class="col-sm-2 control-label">Kategori</label>
+                <div class="col-sm-10">
+                    <select name="category" id="input-category" class="form-control">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-artist" class="col-sm-2 control-label">Sanatçı adı</label>
+                <div class="col-sm-10">
+                    <input type="text" name="artist" id="input-artist" class="form-control"
+                           value="{{ allegory.artist }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-author" class="col-sm-2 control-label">Eser sahibi</label>
+                <div class="col-sm-10">
+                    <input type="text" name="author" id="input-author" class="form-control"
+                           value="{{ allegory.author }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="checkbox" name="status" {{ allegory.status ? 'checked' }} data-toggle="toggle"
+                           data-on="Aktif" data-onstyle="success" data-off="Pasif" data-offstyle="danger" value="1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-thumb" class="col-sm-2 control-label">Thumb</label>
+                <div class="col-sm-7">
+                    <input type="hidden" name="thumb" class="dropzone hide" value="{{ allegory.thumb }}">
+                    <div id="thumb" class="dropzone"></div>
+                </div>
+
+                <div class="col-sm-3">
+                    {% if allegory.thumb %}
+                        <img src="{{ settings.upload_url }}{{ allegory.thumb }}" alt="" class="img-responsive">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-mid" class="col-sm-2 control-label">Orta ölçekli</label>
+                <div class="col-sm-7">
+                    <input type="hidden" name="mid" class="dropzone hide" value="{{ allegory.mid }}">
+                    <div id="mid" class="dropzone"></div>
+                </div>
+
+                <div class="col-sm-3">
+                    {% if allegory.mid %}
+                        <img src="{{ settings.upload_url }}{{ allegory.mid }}" alt="" class="img-responsive">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-big" class="col-sm-2 control-label">Büyük ölçekli</label>
+                <div class="col-sm-7">
+                    <input type="hidden" name="big" class="dropzone hide" value="{{ allegory.big }}">
+                    <div id="big" class="dropzone"></div>
+                </div>
+
+                <div class="col-sm-3">
+                    {% if allegory.big %}
+                        <img src="{{ settings.upload_url }}{{ allegory.big }}" alt="" class="img-responsive">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-description" class="col-sm-2 control-label">İçerik</label>
+                <div class="col-sm-10">
+                    <textarea name="description" id="input-description" class="form-control redactor-text"
+                              rows="10">{{ allegory.description }}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footerScript %}
+    <script>
+        $(function () {
+            $("#thumb, #mid, #big").dropzone(imageUploadSettings);
+        });
+    </script>
+{% endblock %}

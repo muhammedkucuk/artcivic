@@ -1,0 +1,162 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('backend.videos') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                {{ video.eserad }}
+                <small>düzenle</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal xhr-form" action="{{ path_for('backend.videos.update', {'id': video.id}) }}" method="post">
+                <input type="hidden" name="_method" value="put">
+                <div class="form-group">
+                    <label for="input-title" class="col-sm-2 control-label">Başlık</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="title" id="input-title" class="form-control"
+                               value="{{ video.eserad }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-isbn" class="col-sm-2 control-label">ISBN</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="isbn" id="input-isbn" class="form-control" value="{{ video.isbn }}"
+                               disabled>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="checkbox" name="status" {{ video.durum ? 'checked': '' }} data-toggle="toggle"
+                               data-on="Yayında" data-off="Yayında değil" data-onstyle="success" data-offstyle="danger"
+                               value="1">
+
+                        <input type="checkbox" name="is_paid" {{ video.freevideo ? 'checked': '' }} data-toggle="toggle"
+                               data-on="Ücretsiz" data-onstyle="success" data-off="Ücretli" data-offstyle="danger"
+                               value="1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-price" class="col-sm-2 control-label">Fiyat</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="price" id="input-price" class="form-control" value="{{ video.fiyat }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-category" class="col-sm-2 control-label">Kategori</label>
+                    <div class="col-sm-10">
+                        <select name="category" id="input-category" class="form-control">
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {{ video.anakatid == category.id ? 'selected' : '' }}>{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-author" class="col-sm-2 control-label">Yönetmen</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="author" id="input-author" class="form-control"
+                               value="{{ video.yazar }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-publisher" class="col-sm-2 control-label">Yayınevi</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="publisher" id="input-publisher" class="form-control"
+                               value="{{ video.yayinci }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cover" class="col-sm-2 control-label">Resim dosyası</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="cover" class="dropzone hide" value="{{ video.res }}">
+                        <div id="cover" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if video.res %}
+                            <img src="{{ settings.upload_url }}{{ video.res }}" alt="" class="img-responsive">
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-preview-video" class="col-sm-2 control-label">Önizleme videosu</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="preview_video" class="dropzone hide" value="{{ video.kitap_preview_dosya }}">
+                        <div id="preview_video" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if video.kitap_preview_dosya %}
+                            <video src="{{ settings.upload_url }}{{ video.kitap_preview_dosya }}" controls height="150"></video>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-video" class="col-sm-2 control-label">Video</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="video" id="input-video" class="dropzone hide" value="{{ video.kitap_dosya }}">
+                        <div id="video" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if video.kitap_dosya %}
+                            <video src="{{ settings.upload_url }}{{ video.kitap_dosya }}" controls height="150"></video>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-advertorial" class="col-sm-2 control-label">Reklam videosu</label>
+                    <div class="col-sm-7">
+                        <input type="hidden" name="advertorial" class="dropzone hide" value="{{ video.reklam }}">
+                        <div id="advertorial" class="dropzone"></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {% if video.reklam %}
+                            <video src="{{ settings.upload_url }}{{ video.reklam }}" controls height="150"></video>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-description" class="col-sm-2 control-label">Kısa bilgi</label>
+                    <div class="col-sm-10">
+                        <textarea name="description" id="input-description" class="form-control redactor-text"
+                                  rows="10">{{ video.ozet }}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footerScript %}
+    <script>
+        $(function () {
+            $("#cover").dropzone(imageUploadSettings);
+
+            $("#preview_video, #video, #advertorial").dropzone(videoUploadSettings);
+        });
+    </script>
+{% endblock %}

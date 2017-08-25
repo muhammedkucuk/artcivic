@@ -1,0 +1,53 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ user.name_surname }}</h1>
+
+            <dl class="dl-horizontal">
+                <dt>ID</dt>
+                <dd>{{ user.id }}</dd>
+
+                <dt>Kayıt tarihi</dt>
+                <dd>{{ user.date_entry }}</dd>
+
+                <dt>Kullanıcı</dt>
+                <dd>{{ user.username }}</dd>
+
+                <dt>İsim soyisim</dt>
+                <dd>{{ user.name_surname }}</dd>
+
+                <dt>E-posta</dt>
+                <dd>{{ user.email }}</dd>
+
+                <dt>Telefon</dt>
+                <dd>{{ user.telephone }}</dd>
+
+                <dt>Adress</dt>
+                <dd>{{ user.address }}</dd>
+
+                <dt>Doğum tarihi</dt>
+                <dd>{{ user.birth_date }}</dd>
+
+                <dt>Cinsiyet</dt>
+                <dd>{{ user.gender ?: '---' }}</dd>
+
+                <dt>Şehir</dt>
+                <dd>{{ user_city.city_first_capital ?: '---' }}</dd>
+
+                <dt>Okuma tercihleri</dt>
+                <dd>
+                    <ul class="list-unstyled">
+                        {% for category in categories %}
+                            <li>
+                                <input type="checkbox" {{ category.id in user_categories ? 'checked'}}>
+                                {{ category.category_name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+<figure>
+    <img src="{{ item.picture }}" alt="" height="150">
+</figure>
+
+<figcaption>{{ item.title }}</figcaption>
+
+<div class="book-detail">
+    <a href="{{ path_for('hardcopies.show', {'isbn': item.isbn}) }}" class="author">{{ item.author_name }}</a>
+    <p class="price">{{ item.price|number_format }} TL</p>
+</div>

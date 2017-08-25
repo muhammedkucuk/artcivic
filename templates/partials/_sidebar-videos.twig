@@ -1,0 +1,22 @@
+<fieldset>
+    <legend>Artcivic TV</legend>
+
+    {% for item in sidebar_videos %}
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img src="//artcivic.com/images/video/{{ item.res }}"
+                         class="media-object" alt="" width="80">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h5 class="media-heading">{{ item.title }}</h5>
+
+                {% if item.yayinci %}
+                    <small>yayıncı: {{ item.yayinci }}</small>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</fieldset>

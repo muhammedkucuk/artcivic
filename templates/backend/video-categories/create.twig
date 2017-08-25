@@ -1,0 +1,38 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('backend.video-categories') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                Yeni Kategori
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal xhr-form" action="{{ path_for('backend.video-categories.store') }}" method="post">
+                <div class="form-group">
+                    <label for="input-title" class="col-sm-2 control-label">Başlık</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="title" id="input-title" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="checkbox" name="status" data-toggle="toggle"
+                               data-on="Aktif" data-off="Pasif" data-onstyle="success" data-offstyle="danger" value="1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

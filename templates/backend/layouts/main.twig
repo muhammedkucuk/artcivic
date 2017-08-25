@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Yönetimi</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/g/jquery.datatables@1.10.10(css/jquery.dataTables.min.css),select2@4.0.3(css/select2.min.css),alertifyjs@1.10.0(css/themes/bootstrap.min.css+css/alertify.min.css),dropzone@4.3.0(dropzone.min.css)">
+    <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+    <link rel="stylesheet" href="/css/backend.app.css">
+    <link rel="stylesheet" href="/js/redactor/redactor.css">
+</head>
+<body>
+<div class="container">
+    <header class="row">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">ArtCivic</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path_for('backend.users') }}">Kullanıcılar <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kitap <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path_for('backend.hardcopies') }}">Basılı</a></li>
+                                <li><a href="{{ path_for('backend.ebooks') }}">E-kitap</a></li>
+                                <li><a href="{{ path_for('backend.gardners') }}">Gardner</a></li>
+                                <li><a href="{{ path_for('backend.street-libs') }}">Street Lib</a></li>
+                                <li><a href="#">Öne Çıkanlar</a></li>
+                                <li><a href="{{ path_for('backend.book-categories') }}">Kategoriler</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ path_for('backend.allegories') }}">Alegori</a></li>
+                        <li><a href="{{ path_for('backend.posts') }}">Yazılar</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Video <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path_for('backend.videos') }}">Listele</a></li>
+                                <li><a href="{{ path_for('backend.video-categories') }}">Kategoriler</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ path_for('backend.orders') }}">Satış Yönetimi</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">İçerik Yönetimi <span
+                                        class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Vitrin Listesi</a></li>
+                                <li><a href="{{ path_for('backend.comments') }}">Yorum Yönetimi</a></li>
+                                <li><a href="{{ path_for('backend.contents') }}">İçerik Listesi</a></li>
+                                <li><a href="#">Yeni Banner</a></li>
+                                <li><a href="#">Banner Listesi</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>{{ authUser.namesurname }}</a></li>
+                        <li><a href="{{ path_for('backend.logout') }}">Çıkış</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <section>
+        {% block content %}{% endblock %}
+    </section>
+
+    <footer></footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/g/jquery@3.2.1,bootstrap@3.3.7,jquery.datatables@1.10.10,select2@4.0.3,alertifyjs@1.10.0,dropzone@4.3.0"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="/js/redactor/redactor.min.js"></script>
+<script src="/js/backend.app.js"></script>
+{% block footerScript %}{% endblock %}
+</body>
+</html>

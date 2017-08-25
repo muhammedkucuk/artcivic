@@ -1,0 +1,42 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Kullanıcılar</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if users %}
+                <table id="user-list" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th>İsim</th>
+                        <th>E-posta</th>
+                        <th>Telefon</th>
+                        <th>Kayıt Tarihi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td class="text-right">{{ loop.index + offset }}</td>
+                            <td><a href="{{ path_for('backend.users.show', {'id': user.id}) }}">{{ user.name_surname }}</a></td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.telephone }}</td>
+                            <td>{{ user.date_entry }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Kullanıcı bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

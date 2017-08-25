@@ -1,0 +1,44 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Basılı Kitaplar <small>({{ total }})</small></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if hardcopies %}
+                <table id="hardcopy-list" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th width="75">ISBN</th>
+                        <th>Kitap adı</th>
+                        <th width="20">Durumu</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tbody>
+                    {% for hardcopy in hardcopies %}
+                        <tr>
+                            <td>{{ loop.index + offset }}</td>
+                            <td>{{ hardcopy.isbn }}</td>
+                            <td>{{ hardcopy.title }}</td>
+                            <td>{{ hardcopy.status ? 'Aktif' : 'Pasif' }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </thead>
+                </table>
+
+                {% include 'partials/_pagination.twig' %}
+            {% else %}
+                Kitap bulunamadı
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

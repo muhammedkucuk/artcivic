@@ -1,0 +1,85 @@
+{% extends 'backend/layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <a href="{{ path_for('backend.street-libs') }}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                {{ streetLib.title }}
+                <small>düzenle</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form class="form-horizontal xhr-form" action="{{ path_for('backend.street-libs.update', {'isbn': streetLib.isbn}) }}"
+              method="post">
+            <input type="hidden" name="_method" value="put">
+            <div class="form-group">
+                <label for="input-title" class="col-sm-2 control-label">Başlık</label>
+                <div class="col-sm-10">
+                    <input type="text" name="title" class="form-control" id="input-title" placeholder="Başlık"
+                           value="{{ streetLib.title }}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-isbn" class="col-sm-2 control-label">ISBN</label>
+                <div class="col-sm-2">
+                    <input type="text" name="isbn" class="form-control" id="input-isbn" placeholder="ISBN"
+                           value="{{ streetLib.isbn }}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-price" class="col-sm-2 control-label">Fiyat</label>
+                <div class="col-sm-2">
+                    <input type="text" name="price" id="input-price" class="form-control" placeholder="00.0"
+                           value="{{ streetLib.price }}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-category" class="col-sm-2 control-label">Kategori</label>
+                <div class="col-sm-10">
+                    <select name="categories[]" id="input-category" class="form-control select2-select" multiple>
+                        <option disabled>Seçiniz</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {{ category.id in streetLib.cats|unserialize ? 'selected' }}>{{ category.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-author" class="col-sm-2 control-label">Yazar</label>
+                <div class="col-sm-4">
+                    <input type="text" name="author" id="input-author" class="form-control"
+                           value="{{ streetLib.authors }}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-publisher" class="col-sm-2 control-label">Yayın evi</label>
+                <div class="col-sm-4">
+                    <input type="text" name="publisher" id="input-publisher" class="form-control"
+                           value="{{ streetLib.publishers }}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-description" class="col-sm-2 control-label">Açıklama</label>
+                <div class="col-sm-10">
+                    <textarea name="description" id="input-description" class="form-control redactor-text"
+                              rows="10">{{ streetLib.content }}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

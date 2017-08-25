@@ -1,0 +1,51 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <fieldset>
+        <legend>kitap</legend>
+
+        <div class="row">
+            {% for item in hardcopies %}
+                <div class="col-md-3 col-sm-4 col-xs-6 book-item">
+                    {% include 'partials/_showcase-hardcopy-item.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>e-kitap</legend>
+
+        <div class="row">
+            {% for item in ebooks %}
+                <div class="col-md-3 col-sm-4 col-xs-6  book-item">
+                    {% include 'partials/_showcase-ebook-item.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>yabancı e-kitap</legend>
+
+        <div class="row">
+            {% for item in gardners %}
+                <div class="col-md-3 col-sm-4 col-xs-6  book-item">
+                    {% include 'partials/_showcase-gardner-item.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Alegoriart</legend>
+
+        <div class="row">
+            {% for item in allegories %}
+                <div class="col-md-3 col-sm-4 col-xs-6  book-item">
+                    {% include 'partials/_showcase-allegory-item.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+{% endblock %}
